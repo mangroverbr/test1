@@ -20,9 +20,10 @@
             margin: 0;
         }
         </style>
-        <title></title>
+        <title>My map</title>
     </head>
     <body>
+        <center><h1>Welcome to My map</center></h1>
         <div id="map">
         </div>
         <script src="js/qgis2web_expressions.js"></script>
@@ -40,7 +41,7 @@
         <script>
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        })
+        }).fitBounds([[-64.75732441900712,-10.898820890991118],[76.77526301408133,226.3763992174219]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -77,9 +78,6 @@
         }).addTo(map);
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
-            if (bounds_group.getLayers().length) {
-                map.fitBounds(bounds_group.getBounds());
-            }
         }
         map.createPane('pane_OSMStandard_0');
         map.getPane('pane_OSMStandard_0').style.zIndex = 400;
@@ -109,7 +107,8 @@
                         <td colspan="2">' + (feature.properties['Depth'] !== null ? autolinker.link(feature.properties['Depth'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Magnitude'] !== null ? autolinker.link(feature.properties['Magnitude'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Magnitude</th>\
+                        <td class="visible-with-data" id="Magnitude">' + (feature.properties['Magnitude'] !== null ? autolinker.link(feature.properties['Magnitude'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['MagType'] !== null ? autolinker.link(feature.properties['MagType'].toLocaleString()) : '') + '</td>\
